@@ -5,6 +5,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
 import EnhancedTable from "./TableData";
+import { useState } from "react";
+import data from "./data.json";
 
 function MainProjectPage() {
   const [value, setValue] = React.useState("one");
@@ -12,6 +14,10 @@ function MainProjectPage() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  // const [data,setData]=useState([]);
+
+  // console.log(data);
 
   return (
     <>
@@ -102,21 +108,26 @@ function MainProjectPage() {
           </Tabs>
         </Box>
 
+        <div style={{marginTop:"25px", marginLeft:"-30px"}}>
+
+
               {
                  value=="one" ? <>
-                <EnhancedTable/>
+                <EnhancedTable STY finaleTableData={data.raw_broadmatch_data}/>
                 </> :null
               } 
                             {
                 value=="two" ? <>
-                Twoshow
+                <EnhancedTable finaleTableData={data.raw_related_data}/>
                 </> :null
               }
                             {
                 value=="three" ? <>
-                Threeshow
+                <EnhancedTable finaleTableData={data.raw_question_data}/>
                 </> :null
               }
+              
+        </div>
 
       </Box>
     </>

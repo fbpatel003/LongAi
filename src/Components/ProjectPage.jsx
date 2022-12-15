@@ -6,7 +6,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -16,10 +15,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import { Link } from "react-router-dom";
-import DashBoard from "./DashBoard";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import MicrowaveRoundedIcon from "@mui/icons-material/MicrowaveRounded";
 import WebRoundedIcon from "@mui/icons-material/WebRounded";
@@ -105,9 +101,6 @@ function ProjectPage() {
             >
               <MenuIcon />
             </IconButton>
-            {/* <Typography variant="h6" noWrap component="div">
-              Persistent drawer
-            </Typography> */}
             <span style={{fontSize:"smaller"}}>KeyWord Explorer {" "}</span>
             {">"}
             <span style={{fontSize:"smaller", color:"grey"}}>{" "}KeyWord Overview</span>

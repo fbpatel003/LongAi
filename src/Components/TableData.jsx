@@ -21,32 +21,29 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+// import data from "./data.json";
 
-function createData(name, calories, fat, carbs, protein) {
+function createData(Keyword, SearchVolume, Intent, CPC, Competition, Results, KeywordDifficulty) {
+ Results = Results/1000000;
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    Keyword,
+    SearchVolume,
+    Intent,
+    CPC,
+    Competition,
+    Results,
+    KeywordDifficulty
   };
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
+// const FinaleTableData = data.raw_broadmatch_data;
+
+// let rows = [];
+
+// FinaleTableData.forEach(element => {
+//   element = createData(element[0], element[1],element[2], element[3],element[4],element[5],element[7],);
+//   rows = [element, ...rows];
+// });
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -80,34 +77,47 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'name',
+    id: 'Keyword',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
-  },
+    label: 'Keyword',
+  }, 
   {
-    id: 'calories',
+    id: 'Intent',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Intent',
   },
   {
-    id: 'fat',
+    id: 'SearchVolume',
     numeric: true,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Search Volume',
+  },
+
+  {
+    id: 'CPC',
+    numeric: true,
+    disablePadding: false,
+    label: 'CPC',
   },
   {
-    id: 'carbs',
+    id: 'Competition',
     numeric: true,
     disablePadding: false,
-    label: 'Carbs (g)',
+    label: 'Number Of Results',
   },
   {
-    id: 'protein',
+    id: 'Results',
     numeric: true,
     disablePadding: false,
-    label: 'Protein (g)',
+    label: 'Results',
+  },
+  {
+    id: 'KeywordsDifficulty',
+    numeric: true,
+    disablePadding: false,
+    label: 'Keyword Difficulty',
   },
 ];
 
@@ -197,7 +207,7 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          
         </Typography>
       )}
 
@@ -222,9 +232,90 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function EnhancedTable() {
+export default function EnhancedTable(props) {
+
+  console.log(props.finaleTableData);
+
+  let rows = [];
+
+props.finaleTableData.forEach(element => {
+  element = createData(element[0], element[1],element[2], element[3],element[4],element[5],element[7],);
+  rows = [element, ...rows];
+});
+
+  const intentMap = {
+    0: {
+      type: "Commercial",
+      hoverText: "The user wants to investigate brands or services.",
+      color: { bg: "#FCE081", text: "#A75800", hover: "#ffca6e" },
+    },
+    1: {
+      type: "Informational",
+      hoverText: "The user wants to find an answer to a specific question.",
+      color: { bg: "#C4E5FE", text: "#006DCA", hover: "#61c6ff" },
+    },
+    2: {
+      type: "Navigational",
+      hoverText: "The user wants to find a specific page or site.",
+      color: { bg: "#EDD9FF", text: "#8649E1", hover: "#c59dfa" },
+    },
+    3: {
+      type: "Transactional",
+      hoverText: "The user wants to complete an action (conversion).",
+      color: { bg: "#9EF2C9", text: "#007C65", hover: "#11d6a6" },
+    },
+   };
+
+   const keywordDifficulty = function(value) {
+    if (value > 85) {
+      return {
+        rating: "Very hard",
+        text:
+          "The absolute hardest keywords to compete for, especially for a new website. These will demand a lot of on page SEO, link building, and content promotion efforts to eventually rank and acquire traffic.",
+        color: "#D1002F",
+      };
+    } else if (value >= 70) {
+      return {
+        rating: "Hard",
+        text:
+          "Even stiffer competition. These keywords will demand more effort in terms of getting higher authority referring domains in order to rank your well-optimized and helpful content among the top pages.",
+        color: "#FF4953",
+      };
+    } else if (value >= 50) {
+      return {
+        rating: "Difficult",
+        text:
+          "You'll need to have some backlinks in addition to your well-structured, helpful and optimized content in order to compete here.",
+        color: "#FF8C43",
+      };
+    } else if (value >= 30) {
+      return {
+        rating: "Possible",
+        text:
+          "Slightly more competition. You'll need well-structured and unique content appropriately optimized for your keywords.",
+        color: "#FDC23C",
+      };
+    } else if (value >= 15) {
+      return {
+        rating: "Easy",
+        text:
+          "These keywords have some competition but are still possible to rank for when you're starting out. To be able to rank for these, you'll need quality content focused on the keyword's intent.",
+        color: "#59DDAA",
+      };
+    } else {
+      return {
+        rating: "Very easy",
+        text:
+          "These are the best opportunities to start ranking new webpages on Google as soon as possible without backlinks.",
+        color: "#009F81",
+      };
+    }
+  }
+ 
+   
+
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('SearchVolume');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -238,19 +329,19 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
+      const newSelected = rows.map((n) => n.Keyword);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, Keyword) => {
+    const selectedIndex = selected.indexOf(Keyword);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, Keyword);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -278,7 +369,7 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (Keyword) => selected.indexOf(Keyword) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -308,17 +399,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.Keyword);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.Keyword)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.Keyword}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -336,12 +427,45 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.Keyword}
                       </TableCell>
-                      <TableCell align="right">{row.calories}</TableCell>
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="right">{
+                      row.Intent==0 ?
+                          <span Tooltip={intentMap[0].hoverText} style={{padding:"7px",background:intentMap[0].color.bg, color:intentMap[0].color.text}} >
+                            {intentMap[0].type.charAt(0)}
+                          </span>
+                      : null
+                      }
+                      {
+                      row.Intent==1 ?
+                          <span Tooltip={intentMap[1].hoverText} style={{padding:"7px",background:intentMap[1].color.bg, color:intentMap[1].color.text}} >
+                            {intentMap[1].type.charAt(0)}
+                          </span>
+                      : null
+                      }
+                      {
+                      row.Intent==2 ?
+                          <span Tooltip={intentMap[2].hoverText} style={{padding:"7px",background:intentMap[2].color.bg, color:intentMap[2].color.text}} >
+                            {intentMap[2].type.charAt(0)}
+                          </span>
+                      : null
+                      }
+                      {
+                      row.Intent>=3 ?
+                          <span Tooltip={intentMap[3].hoverText} style={{padding:"7px",background:intentMap[3].color.bg, color:intentMap[3].color.text}} >
+                            {intentMap[3].type.charAt(0)}
+                          </span>
+                      : null
+                      } </TableCell>
+                      <TableCell align="right">{row.SearchVolume}</TableCell>
+                      <TableCell align="right">{row.CPC}</TableCell>
+                      <TableCell align="right">{row.Competition}</TableCell>
+                      <TableCell align="right">{row.Results}</TableCell>
+                      <TableCell align="right">{row.KeywordDifficulty}
+                      <span style={{height:"10px",width:"20px", borderRadius:"50%", background:keywordDifficulty(row.KeywordDifficulty).color}}>
+                        {" ... "}
+                      </span>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
