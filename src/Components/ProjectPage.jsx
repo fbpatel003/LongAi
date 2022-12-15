@@ -29,6 +29,7 @@ import Button from "@mui/material/Button";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import MapRoundedIcon from "@mui/icons-material/MapRounded";
 import SensorsRoundedIcon from "@mui/icons-material/SensorsRounded";
+import MainProjectPage from "./MainProjectPage";
 
 function ProjectPage() {
   const drawerWidth = 240;
@@ -93,7 +94,7 @@ function ProjectPage() {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="fixed" open={open}>
+        <AppBar style={{background:"white", color:"black"}} position="fixed" open={open}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -104,9 +105,12 @@ function ProjectPage() {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap component="div">
+            {/* <Typography variant="h6" noWrap component="div">
               Persistent drawer
-            </Typography>
+            </Typography> */}
+            <span style={{fontSize:"smaller"}}>KeyWord Explorer {" "}</span>
+            {">"}
+            <span style={{fontSize:"smaller", color:"grey"}}>{" "}KeyWord Overview</span>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -241,7 +245,7 @@ function ProjectPage() {
               marginTop: "200px",
               position: "relative",
               bottom: "0px",
-              background: "lightGrey",
+              background: "rgb(224, 255, 221)",
               width: "100%",
               height: "auto",
               paddingTop: "25px",
@@ -293,22 +297,7 @@ function ProjectPage() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <DashBoard />
+          <MainProjectPage/>
         </Main>
       </Box>
     </>
