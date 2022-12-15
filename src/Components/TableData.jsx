@@ -336,8 +336,9 @@ props.finaleTableData.forEach(element => {
     setSelected([]);
   };
 
-  const handleClick = (event, Keyword) => {
+  const handleClick = (event, Keyword, SV, DF) => {
     const selectedIndex = selected.indexOf(Keyword);
+    props.setData(SV, DF);
     let newSelected = [];
 
     if (selectedIndex === -1) {
@@ -405,7 +406,7 @@ props.finaleTableData.forEach(element => {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.Keyword)}
+                      onClick={(event) => handleClick(event, row.Keyword, row.SearchVolume, row.KeywordDifficulty)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -457,7 +458,8 @@ props.finaleTableData.forEach(element => {
                           </span>
                       : null
                       } </TableCell>
-                      <TableCell align="right">{row.SearchVolume}</TableCell>
+                      <TableCell align="right" 
+                      >{row.SearchVolume}</TableCell>
                       <TableCell align="right">{row.CPC}</TableCell>
                       <TableCell align="right">{row.Competition}</TableCell>
                       <TableCell align="right">{row.Results}</TableCell>
