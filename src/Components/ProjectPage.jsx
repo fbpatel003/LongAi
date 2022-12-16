@@ -76,7 +76,7 @@ function ProjectPage() {
   }));
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -90,7 +90,11 @@ function ProjectPage() {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar style={{background:"white", color:"black"}} position="fixed" open={open}>
+        <AppBar
+          style={{ background: "white", color: "black" }}
+          position="fixed"
+          open={open}
+        >
           <Toolbar>
             <IconButton
               color="inherit"
@@ -101,9 +105,12 @@ function ProjectPage() {
             >
               <MenuIcon />
             </IconButton>
-            <span style={{fontSize:"smaller"}}>KeyWord Explorer {" "}</span>
+            <span style={{ fontSize: "smaller" }}>KeyWord Explorer </span>
             {">"}
-            <span style={{fontSize:"smaller", color:"grey"}}>{" "}KeyWord Overview</span>
+            <span style={{ fontSize: "smaller", color: "grey" }}>
+              {" "}
+              KeyWord Overview
+            </span>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -128,7 +135,11 @@ function ProjectPage() {
             x="0px"
             y="0px"
             viewBox="0 0 350 75"
-            style={{ enableBackground: "new 0 0 256 54", position: "absolute" }}
+            style={{
+              enableBackground: "new 0 0 256 54",
+              position: "absolute",
+              paddingLeft: "10px",
+            }}
             xmlSpace="preserve"
           >
             <style
@@ -290,7 +301,7 @@ function ProjectPage() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <MainProjectPage/>
+          <MainProjectPage />
         </Main>
       </Box>
     </>

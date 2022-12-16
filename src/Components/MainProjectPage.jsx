@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import EnhancedTable from "./TableData";
 import data from "./data.json";
 import Divider from "@mui/material/Divider";
+import Tooltip from "@mui/material/Tooltip";
 
 function MainProjectPage() {
   const [value, setValue] = React.useState("one");
@@ -18,10 +19,16 @@ function MainProjectPage() {
   const [currVolume, setCurrVolume] = React.useState(420);
   const [currDiff, setCurrDiff] = React.useState(46);
   const [curIntent, setCurrIntent] = React.useState(0);
-  function getObjectSetData(SV, DF, INT) {
+  const [currResult, setCurrResult] = React.useState(87.9);
+  const [currCP, serCurrCP] = React.useState(0.24);
+  const [currCom, setCurrCom] = React.useState(0.12);
+  function getObjectSetData(SV, DF, INT, RSLT, CP, COM) {
     setCurrVolume(SV);
     setCurrDiff(DF);
     setCurrIntent(INT);
+    setCurrResult(RSLT);
+    serCurrCP(CP);
+    setCurrCom(COM);
   }
 
   const keywordDifficulty = function (value) {
@@ -191,20 +198,68 @@ function MainProjectPage() {
                 <span style={{ fontSize: "large", fontWeight: "300" }}>
                   Intent
                 </span>
-                <br />
+                <br /> <br />
                 <div>
-                  {curIntent == 0 ? 
+                  {curIntent == 0 ? (
+                    <Tooltip title={intentMap.zero.hoverText} placement="top">
                       <span
-                      data-tip data-for="registerTip"
                         style={{
                           background: intentMap.zero.color.bg,
                           color: intentMap.zero.color.text,
+                          padding: "5px",
+                          borderRadius: "10px",
                         }}
                       >
                         {" "}
                         {intentMap.zero.type}{" "}
                       </span>
-                  : null}
+                    </Tooltip>
+                  ) : null}
+                  {curIntent == 1 ? (
+                    <Tooltip title={intentMap.one.hoverText} placement="top">
+                      <span
+                        style={{
+                          background: intentMap.one.color.bg,
+                          color: intentMap.one.color.text,
+                          padding: "5px",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        {" "}
+                        {intentMap.one.type}{" "}
+                      </span>
+                    </Tooltip>
+                  ) : null}
+                  {curIntent == 2 ? (
+                    <Tooltip title={intentMap.two.hoverText} placement="top">
+                      <span
+                        style={{
+                          background: intentMap.two.color.bg,
+                          color: intentMap.two.color.text,
+                          padding: "5px",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        {" "}
+                        {intentMap.two.type}{" "}
+                      </span>
+                    </Tooltip>
+                  ) : null}
+                  {curIntent >= 3 ? (
+                    <Tooltip title={intentMap.three.hoverText} placement="top">
+                      <span
+                        style={{
+                          background: intentMap.three.color.bg,
+                          color: intentMap.three.color.text,
+                          padding: "5px",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        {" "}
+                        {intentMap.three.type}{" "}
+                      </span>
+                    </Tooltip>
+                  ) : null}
                 </div>
               </div>
             </Grid>
@@ -218,7 +273,15 @@ function MainProjectPage() {
                   borderRadius: "15px",
                   padding: "10px",
                 }}
-              ></div>
+              >
+                <span style={{ fontSize: "large", fontWeight: "300" }}>
+                  Results
+                </span>{" "}
+                <br />
+                <span style={{ fontSize: "xx-large", fontWeight: "1000" }}>
+                  {currResult + "M"}
+                </span>
+              </div>
             </Grid>
             <Grid xs={12}>
               <div
@@ -229,7 +292,28 @@ function MainProjectPage() {
                   borderRadius: "15px",
                   padding: "10px",
                 }}
-              ></div>
+              >
+                <Grid style={{ display: "flex" }}>
+                  <Grid xs={6}>
+                    <span style={{ fontSize: "large", fontWeight: "300" }}>
+                      CPC
+                    </span>{" "}
+                    <br />
+                    <span style={{ fontSize: "xx-large", fontWeight: "1000" }}>
+                      {"$" + currCP}
+                    </span>
+                  </Grid>
+                  <Grid xs={6}>
+                    <span style={{ fontSize: "large", fontWeight: "300" }}>
+                      Com.
+                    </span>{" "}
+                    <br />
+                    <span style={{ fontSize: "xx-large", fontWeight: "1000" }}>
+                      {currCom}
+                    </span>
+                  </Grid>
+                </Grid>
+              </div>
             </Grid>
           </Grid>
         </Grid>
